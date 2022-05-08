@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+html {
+  background-color: #ece8ef;
+  width: 100%;
+}
+
+body {
+  width: 100%;
+}
+
+#app {
+  width: 100%;
+}

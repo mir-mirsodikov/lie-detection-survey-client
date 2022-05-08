@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import Admin from './views/Admin.vue';
+import SignIn from './views/SignIn.vue';
+
+
 </script>
 
 <template>
-  <Admin></Admin>
+  <router-view></router-view>
 </template>

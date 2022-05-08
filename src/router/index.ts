@@ -1,9 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import SignIn from '../views/SignIn.vue';
 
-export const routes = [];
+export const routes = [
+  {
+    path: '/login',
+    name: 'Log In',
+    component: SignIn
+  }
+];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 });
 

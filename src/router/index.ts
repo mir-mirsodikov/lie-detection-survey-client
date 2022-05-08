@@ -23,22 +23,24 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   document.title = to.name as string;
   const authStore = useAuthStore();
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (authStore.isAuthenticated()) {
+    if (await authStore.isAuthorized()) {
       next();
       return;
     }
     next('/login');
+    return;
   }
   else if (to.matched.some(record => record.meta.guest)) {
-    if (authStore.isAuthenticated()) {
+    if (await authStore.isAuthorized()) {
       next('/admin');
       return;
     }
     next();
+    return;
   }
   else {
     next();

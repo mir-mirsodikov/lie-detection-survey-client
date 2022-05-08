@@ -4,30 +4,34 @@ import { IUser } from '../model/user';
 import { AuthService } from '../services/AuthService';
 
 export const useAuthStore = defineStore('auth', () => {
-  const auth = ref();
+  const authToken = ref();
 
   async function signIn(username: string, password: string) {
-    const token = await AuthService.signIn(username, password);
-    setToken(token);
+    const response = await AuthService.signIn(username, password);
+    setToken(response);
   }
 
   function isAuthenticated() {
-    return auth.value !== undefined;
+    return authToken.value !== undefined;
   }
 
   async function isAuthorized() {
-    const token = localStorage.getItem('token');
-    setToken(token as string);
-    return await AuthService.authorize(auth.value);
+    const localToken = localStorage.getItem('token');
+    if (!localToken) {
+      return false;
+    }
+    setToken(localToken as string);
+    const result = await AuthService.authorize(localToken);
+    return result;
   }
 
   function setToken(token: string) {
-    auth.value = token;
-    localStorage.setItem('token', auth.value);
+    authToken.value = token;
+    localStorage.setItem('token', token);
   }
 
   return {
-    auth,
+    token: authToken,
     signIn,
     isAuthenticated,
     isAuthorized,

@@ -6,8 +6,8 @@ import { AuthService } from '../services/AuthService';
 export const useAuthStore = defineStore('auth', () => {
   const auth = ref({});
 
-  async function signIn(user: IUser) {
-    auth.value = await AuthService.signIn(user);
+  async function signIn(username: string, password: string) {
+    auth.value = await AuthService.signIn(username, password);
   }
 
   return {

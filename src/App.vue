@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onBeforeUpdate, onMounted, onUpdated } from 'vue';
+import { onMounted } from 'vue';
 import { useAuthStore } from './store/auth';
 
 onMounted(async () => {

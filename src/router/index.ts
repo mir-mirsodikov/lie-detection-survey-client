@@ -23,7 +23,6 @@ const router = createRouter({
   routes,
 });
 
-
 router.beforeEach((to, from, next) => {
   document.title = to.name as string;
   const authStore = useAuthStore();
@@ -45,19 +44,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
-// router.beforeEach((to, from, next) => {
-//   const authStore = useAuthStore();
-//   if (to.matched.some(record => record.meta.guest)) {
-//     if (authStore.isAuthenticated()) {
-//       next('/admin');
-//       return;
-//     }
-//     next();
-//   }
-//   next();
-// });
-
-
 
 export default router;

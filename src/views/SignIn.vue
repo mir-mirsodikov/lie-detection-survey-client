@@ -22,8 +22,8 @@
           </fieldset>
         </form>
       </div>
-      <div class="uk-card-footer">
-        <p>Error</p> 
+      <div class="uk-card-footer" v-if="error">
+        <p>{{ error }}</p> 
       </div>
     </div>
   </div>
@@ -31,14 +31,23 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import router from '../router';
 import { useAuthStore } from '../store/auth';
 
 const username = ref();
 const password = ref();
+const error = ref();
 
 const authStore = useAuthStore();
 
 async function signIn() {
-  await authStore.signIn(username.value, password.value);
+  try {
+    await authStore.signIn(username.value, password.value);
+    error.value = '';
+    router.push('/admin');
+  }
+  catch (e: any) {
+    error.value = 'Incorrect username or password'; 
+  }
 }
 </script>

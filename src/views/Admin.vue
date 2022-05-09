@@ -1,6 +1,6 @@
 <template>
-  <div class="uk-margin-auto uk-margin uk-background-default" uk-grid>
-    <div class="uk-width-expand uk-flex uk-grid-middle">
+  <div class="uk-margin uk-background-default" uk-grid>
+    <div class="uk-width-expand uk-flex uk-flex-middle">
       <div>
         <h1 class="uk-padding">Admin Dashboard</h1>
       </div>

@@ -29,8 +29,4 @@ async function submit() {
   await adminStore.createQuestion(newQuestion.value);
   newQuestion.value = '';
 }
-
-onMounted(async () => {
-  await adminStore.getQuestions();
-});
 </script>

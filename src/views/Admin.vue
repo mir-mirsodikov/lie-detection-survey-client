@@ -1,39 +1,22 @@
 <template>
-  <h1>Admin</h1>
-
-  <div class="uk-card uk-card-default uk-card-hover uk-margin-auto uk-width-1-2">
-    <div class="uk-card-header">
-      <h3 class="uk-card-title">Create new question</h3>
+  <div class="uk-margin-auto uk-margin uk-background-default" uk-grid>
+    <div class="uk-width-expand uk-flex uk-grid-middle">
+      <div>
+        <h1 class="uk-padding">Admin Dashboard</h1>
+      </div>
     </div>
-
-    <div class="uk-card-body">
-      <form class="uk-form-stacked" @submit.prevent="submit">
-        <fieldset class="uk-fieldset">
-          <div class="uk-margin">
-            <textarea class="uk-textarea" placeholder="Enter new question" v-model="newQuestion" />
-          </div>
-
-          <button class="uk-button uk-button-primary uk-align-right uk-margin-remove">Submit</button>
-        </fieldset>
-      </form>
+    <div class="uk-margin uk-padding uk-flex uk-flex-middle">
+      <div>
+        <button class="uk-button uk-button-primary">Sign out</button>
+      </div>
     </div>
   </div>
+
+  <NewQuestion></NewQuestion>
+  <QuestionsList></QuestionsList>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { AdminService } from '../services/AdminService';
-import { useAdminStore } from '../store/AdminStore';
-
-const newQuestion = ref();
-const adminStore = useAdminStore();
-
-async function submit() {
-  await adminStore.createQuestion(newQuestion.value);
-  newQuestion.value = '';
-}
-
-onMounted(async () => {
-  await adminStore.getQuestions();
-});
+import NewQuestion from '../components/NewQuestion.vue';
+import QuestionsList from '../components/QuestionsList.vue';
 </script>

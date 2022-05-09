@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-card uk-card-default uk-card-hover uk-margin-auto uk-width-1-2">
+  <div class="uk-card uk-card-default uk-card-hover uk-margin-auto uk-width-3-4">
     <div class="uk-card-header">
       <h3 class="uk-card-title">Create new question</h3>
     </div>
@@ -8,7 +8,7 @@
       <form class="uk-form-stacked" @submit.prevent="submit">
         <fieldset class="uk-fieldset">
           <div class="uk-margin">
-            <textarea class="uk-textarea" placeholder="Enter new question" v-model="newQuestion" />
+            <textarea class="uk-textarea" rows="5" placeholder="Enter new question" v-model="newQuestion" />
           </div>
 
           <button class="uk-button uk-button-primary uk-align-right uk-margin-remove">Submit</button>

@@ -13,10 +13,12 @@
   </div>
 
   <NewQuestion></NewQuestion>
+  <Settings></Settings>
   <QuestionsList></QuestionsList>
 </template>
 
 <script setup lang="ts">
 import NewQuestion from '../components/NewQuestion.vue';
 import QuestionsList from '../components/QuestionsList.vue';
+import Settings from '../components/Settings.vue';
 </script>

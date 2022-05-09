@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "start": "cd http-server && npm run build && npm start"
+    "start": "cd http-server && npm i && npm run build && npm start"
   },
   "dependencies": {
     "@types/node": "^17.0.31",

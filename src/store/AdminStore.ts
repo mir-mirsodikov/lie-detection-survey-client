@@ -18,6 +18,24 @@ export const useAdminStore = defineStore('admin', () => {
     surveyQuestions.value = await AdminService.getQuestions();
   }
 
+  async function updateQuestion(id: number, value: string) {
+    const response = await AdminService.updateQuestion(id, value);
+    const index = surveyQuestions.value.findIndex(
+      // @ts-ignore
+      (question) => question.id === id,
+    );
+    surveyQuestions.value[index] = response;
+  }
+
+  async function deleteQuestion(id: number) {
+    const response = await AdminService.deleteQuestion(id);
+    const index = surveyQuestions.value.findIndex(
+      // @ts-ignore
+      (question) => question.id === id,
+    );
+    surveyQuestions.value[index] = response;
+  }
+
   async function setSettings(settings: {wpm: number, instructions: string}) {
     const response = await AdminService.setSettings(settings);
     surveySettings.value = response;

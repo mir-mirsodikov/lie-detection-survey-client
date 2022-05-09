@@ -7,10 +7,10 @@
     </div>
 
     <div class="uk-card-body">
-      <form class="uk-form-stacked">
+      <form class="uk-form-stacked" @submit.prevent="submit">
         <fieldset class="uk-fieldset">
           <div class="uk-margin">
-            <textarea class="uk-textarea" placeholder="Enter new question" />
+            <textarea class="uk-textarea" placeholder="Enter new question" v-model="newQuestion" />
           </div>
 
           <button class="uk-button uk-button-primary uk-align-right uk-margin-remove">Submit</button>
@@ -21,4 +21,19 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { AdminService } from '../services/AdminService';
+import { useAdminStore } from '../store/AdminStore';
+
+const newQuestion = ref();
+const adminStore = useAdminStore();
+
+async function submit() {
+  await adminStore.createQuestion(newQuestion.value);
+  newQuestion.value = '';
+}
+
+onMounted(async () => {
+  await adminStore.getQuestions();
+});
 </script>

@@ -8,13 +8,17 @@ export class AdminService {
 
   static async createQuestion(question: string) {
     const token = useAuthStore().token;
-    const response = await axios.post(this.url + '/survey', {
-      value: question
-    },{
-      headers: {
-        authorization: token,
-      }
-    });
+    const response = await axios.post(
+      this.url + '/survey',
+      {
+        value: question,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      },
+    );
 
     return response.data;
   }
@@ -24,9 +28,31 @@ export class AdminService {
     const response = await axios.get(this.url + '/survey', {
       headers: {
         authorization: token,
-      }
+      },
     });
 
     return response.data;
+  }
+
+  static async setSettings(settings: { wpm: number; instructions: string }) {
+    const token = useAuthStore().token;
+    console.log(settings);
+    const response = await axios.post(
+      this.url + '/settings',
+      {
+        wpm: settings.wpm,
+        instructions: settings.instructions,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      },
+    );
+
+    return {
+      wpm: response.data.wpm,
+      instructions: response.data.instructions,
+    };
   }
 }

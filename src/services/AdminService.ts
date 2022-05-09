@@ -1,4 +1,5 @@
 import axios from 'axios';
+import internal from 'stream';
 import { baseUrl } from '../helpers/constants';
 import { useAuthStore } from '../store/auth';
 import { AuthService } from './AuthService';
@@ -26,6 +27,34 @@ export class AdminService {
   static async getQuestions() {
     const token = useAuthStore().token;
     const response = await axios.get(this.url + '/survey', {
+      headers: {
+        authorization: token,
+      },
+    });
+
+    return response.data;
+  }
+
+  static async updateQuestion(id: number, value: string) {
+    const token = useAuthStore().token;
+    const response = await axios.patch(
+      this.url + '/survey/' + id,
+      {
+        value,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      },
+    );
+
+    return response.data;
+  }
+
+  static async deleteQuestion(id: number) {
+    const token = useAuthStore().token;
+    const response = await axios.delete(this.url + '/survey/' + id, {
       headers: {
         authorization: token,
       },

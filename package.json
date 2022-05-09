@@ -4,9 +4,13 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "npm run build:ui && npm run build:server",
     "preview": "vite preview",
-    "start": "cd http-server && npm i && npm run build && npm start"
+    "start:deprecated": "cd http-server && npm i && npm run build && npm start",
+    "start": "node dist-server/index.js",
+    "build:ui": "vue-tsc --noEmit && vite build",
+    "build:server:dep": "tsc App.ts index.ts --allowSyntheticDefaultImports --target es6 --module commonjs --outdir dist-server",
+    "build:server": "cd http-server && tsc --build tsconfig.json"
   },
   "dependencies": {
     "@types/node": "^17.0.31",

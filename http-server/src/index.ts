@@ -3,7 +3,7 @@ import path from 'path';
 import App from './App';
 
 function main() {
-  const buildPath = path.join(__dirname, '../../dist');
+  const buildPath = path.join(__dirname, '../dist');
 
   const app = new App(buildPath);
   app.setup();

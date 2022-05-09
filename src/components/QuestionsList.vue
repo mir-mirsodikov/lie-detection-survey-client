@@ -8,9 +8,7 @@
           <a class="uk-accordion-title" href="#">Active Questions</a>
           <div class="uk-accordion-content">
             <div v-for="question in questions" :key="question.id">
-              <div class="uk-card uk-card-default uk-card-body uk-margin uk-card-hover" v-if="question.active">
-                <p>{{ question.value }}</p>
-              </div>
+              <QuestionCard :question="question" v-if="question.active"></QuestionCard>
             </div>
           </div>
         </li>
@@ -18,9 +16,7 @@
           <a class="uk-accordion-title" href="#">Inactive Questions</a>
           <div class="uk-accordion-content">
             <div v-for="question in questions" :key="question.id">
-              <div class="uk-card uk-card-default uk-card-body uk-margin uk-card-hover" v-if="!question.active">
-                <p>{{ question.value }}</p>
-              </div>
+              <QuestionCard :question="question" v-if="!question.active"></QuestionCard>
             </div>
           </div>
         </li>
@@ -32,9 +28,14 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { useAdminStore } from '../store/AdminStore';
+import QuestionCard from './QuestionCard.vue';
 const adminStore = useAdminStore();
 
-const questions = ref();
+const questions = ref<[{
+  id: number,
+  value: string,
+  active: boolean,
+}]>();
 
 onMounted(async () => {
   await adminStore.getQuestions();

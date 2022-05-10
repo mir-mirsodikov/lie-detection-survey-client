@@ -48,7 +48,8 @@ export class AdminService {
         },
       },
     );
-
+    
+    console.log(`response data: ${JSON.stringify(response.data)}`);
     return response.data;
   }
 

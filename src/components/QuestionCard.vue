@@ -4,8 +4,8 @@
       <h3 class="uk-card-title">Question ID: {{ question.id }}</h3>
     </div>
     <div class="uk-card-body">
-      <p v-if="!edit" @click="editQuestion" >{{ question.value }}</p>
-      <textarea class="uk-textarea" v-model="question.value" v-if="edit" @keyup.enter="editQuestion"></textarea>
+      <p v-if="!edit" @click="editQuestion" >{{ value }}</p>
+      <textarea class="uk-textarea" v-model="value" v-if="edit" @keyup.enter="submitQuestion" @keyup.esc="cancel"></textarea>
     </div>
     <div class="uk-card-footer">
       <div class="uk-align-right">
@@ -18,8 +18,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useAdminStore } from '../store/AdminStore';
 
-defineProps<{
+const adminStore = useAdminStore();
+
+const props = defineProps<{
   question: {
     id: number,
     value: string,
@@ -28,9 +31,22 @@ defineProps<{
 }>();
 
 const edit = ref(false);
+const value = ref(props.question.value);
+const originalValue = ref(props.question.value);
 
 const editQuestion = () => {
+  originalValue.value = value.value;
   edit.value = !edit.value;
-  
 };
+
+const submitQuestion = async () => {
+  edit.value = false;
+  value.value = value.value.trimEnd();
+  await adminStore.updateQuestion(props.question.id, value.value);
+}
+
+const cancel = () => {
+  edit.value = false;
+  value.value = originalValue.value;
+}
 </script>

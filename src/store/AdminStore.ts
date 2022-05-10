@@ -20,10 +20,14 @@ export const useAdminStore = defineStore('admin', () => {
 
   async function updateQuestion(id: number, value: string) {
     const response = await AdminService.updateQuestion(id, value);
+    console.log(`response: ${JSON.stringify(response)}`);
     const index = surveyQuestions.value.findIndex(
       // @ts-ignore
       (question) => question.id === id,
     );
+
+    console.log(index);
+    console.log(surveyQuestions.value[index]);
     surveyQuestions.value[index] = response;
   }
 
@@ -46,5 +50,7 @@ export const useAdminStore = defineStore('admin', () => {
     createQuestion,
     getQuestions,
     setSettings,
+    updateQuestion,
+    deleteQuestion
   }
 });

@@ -19,7 +19,7 @@ export const useSurveyStore = defineStore('survey', () => {
       id: number;
       value: string;
     }[]
-  >();
+  >([]);
 
   const currentQuestion = ref(0);
 

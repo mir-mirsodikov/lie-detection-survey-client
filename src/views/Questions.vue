@@ -11,11 +11,32 @@
       </div>
 
       <div class="uk-card-footer">
-        <div class="uk-margin">
-            <input class="uk-range" type="range" value="4" min="1" max="7" step="1">
+        <div class="uk-margin uk-grid-medium uk-child-width-auto uk-grid">
+          <label><input class="uk-radio" type="radio" value="1" v-model="ratingSelection"> 1 - Very dishonest</label>
+          <label><input class="uk-radio" type="radio" value="2" v-model="ratingSelection"> 2 - Moderately
+            dishonest</label>
+          <label><input class="uk-radio" type="radio" value="3" v-model="ratingSelection"> 3 - Slightly
+            dishonest</label>
+          <label><input class="uk-radio" type="radio" value="4" v-model="ratingSelection"> 4 - Neither dishonest or
+            honest</label>
+          <label><input class="uk-radio" type="radio" value="5" v-model="ratingSelection"> 5 - Slightly honest</label>
+          <label><input class="uk-radio" type="radio" value="6" v-model="ratingSelection"> 6 - Moderately honest</label>
+          <label><input class="uk-radio" type="radio" value="7" v-model="ratingSelection"> 7 - Very honest</label>
         </div>
-        <button class="uk-button uk-button-primary uk-align-right" @click="next">Next</button>
+        <button class="uk-button uk-button-primary uk-align-right" :disabled="!ratingSelection"
+          uk-toggle="target: #modal">Next</button>
       </div>
+    </div>
+  </div>
+
+  <div id="modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+      <h2 class="uk-modal-title">Are you sure you want to submit?</h2>
+      <p>You will not be able to change your answer after submitting.</p>
+      <p class="uk-text-right">
+        <button class="uk-button uk-button-default uk-modal-close uk-margin-right" type="button">Cancel</button>
+        <button class="uk-button uk-button-primary uk-modal-close" @click="next" type="button">Save</button>
+      </p>
     </div>
   </div>
 </template>
@@ -32,6 +53,7 @@ const words = ref();
 const word = ref();
 const question = ref();
 const timeLimit = 5;
+const ratingSelection = ref(0);
 let wpm = 0;
 
 let currentTime = ref(timeLimit);

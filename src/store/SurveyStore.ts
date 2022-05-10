@@ -62,7 +62,6 @@ export const useSurveyStore = defineStore('survey', () => {
     const response = await SurveyService.getSurveyQuestions();
     if (response) {
       surveyQuestions.value = shuffleArray(response);
-      currentQuestion.value = surveyQuestions.value[0].id;
     }
   }
 

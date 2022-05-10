@@ -25,7 +25,7 @@ const instructions = ref();
 
 const beginSurvey = async () => {
   await surveyStore.getSurveyQuestions();
-  router.push('/questions');
+  router.push(`/questions/${surveyStore.currentQuestion}`);
 }
 
 onMounted(async () => {

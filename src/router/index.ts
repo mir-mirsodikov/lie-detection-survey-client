@@ -30,7 +30,7 @@ export const routes = [
     component: Instructions,
   },
   {
-    path: '/questions/:id',
+    path: '/questions/:index',
     name: 'Questions',
     component: Questions,
   }

@@ -9,6 +9,16 @@ export class SurveyService {
     return {
       wpm: response.data.wpm,
       instructions: response.data.instructions,
-    }
+    };
+  }
+
+  static async createParticipant(name: string, email: string, gender: string) {
+    const response = await axios.post(this.url + '/participant', {
+      name,
+      email,
+      gender,
+    });
+
+    return response.data;
   }
 }

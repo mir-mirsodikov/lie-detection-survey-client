@@ -1,7 +1,5 @@
 <template>
-  <h1>Instructions</h1>
-
-  <div class="uk-card uk-card-default uk-card-hover uk-margin-auto uk-width-3-4">
+  <div class="uk-card uk-card-default uk-card-hover uk-margin-xlarge-top uk-margin-auto uk-width-3-4@l uk-width-4-5@m">
     <div class="uk-card-header">
       <h3 class="uk-card-title">Instructions</h3>
     </div>
@@ -26,6 +24,7 @@ const surveyStore = useSurveyStore();
 const instructions = ref();
 
 const beginSurvey = async () => {
+  await surveyStore.getSurveyQuestions();
   router.push('/questions');
 }
 

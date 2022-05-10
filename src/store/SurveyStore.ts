@@ -14,6 +14,11 @@ export const useSurveyStore = defineStore('survey', () => {
     email: string
   }>();
 
+  const surveyQuestions = ref<{
+    id: number,
+    value: string,
+  }[]>();
+
   async function getSettings() {
     const response = await SurveyService.getSettings();
     surveySettings.value = response;
@@ -24,10 +29,16 @@ export const useSurveyStore = defineStore('survey', () => {
     participant.value = response;
   }
 
+  async function getSurveyQuestions() {
+    const response = await SurveyService.getSurveyQuestions();
+    surveyQuestions.value = response; 
+  }
+
   return {
     surveySettings,
     getSettings,
     createParticipant,
-    participant
+    participant,
+    getSurveyQuestions,
   }
 });

@@ -21,4 +21,9 @@ export class SurveyService {
 
     return response.data;
   }
+
+  static async getSurveyQuestions() {
+    const response = await axios.get(this.url);
+    return response.data;
+  }
 }

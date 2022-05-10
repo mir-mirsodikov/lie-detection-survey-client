@@ -5,13 +5,13 @@
       <h3 class="uk-card-title">Start</h3>
     </div>
     <div class="uk-card-body">
-      <form>
+      <form @submit.prevent="createParticipant">
         <div class="uk-margin">
           <input type="text" class="uk-input" placeholder="Name" v-model="name" />
         </div>
 
         <div class="uk-margin">
-          <input type="email" class="uk-input" placeholder="Email" v-model="email" />
+          <input type="email" class="uk-input" placeholder="Email" v-model="email" @click="error = ''" />
         </div>
 
         <div class="uk-margin">
@@ -23,16 +23,20 @@
           </select>
         </div>
 
-        <button class="uk-button uk-button-primary uk-width-1-1" @click="createParticipant">
+        <button class="uk-button uk-button-primary uk-width-1-1">
           Continue
         </button>
       </form>
+    </div>
+    <div class="uk-card-footer" v-if="error">
+      <p>{{ error }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import router from '../router';
 import { useSurveyStore } from '../store/SurveyStore';
 
 const surveyStore = useSurveyStore();
@@ -40,9 +44,15 @@ const surveyStore = useSurveyStore();
 const name = ref();
 const email = ref();
 const gender = ref('');
+const error = ref();
 
 const createParticipant = async () => {
-  await surveyStore.createParticipant(name.value, email.value, gender.value);
+  try {
+    await surveyStore.createParticipant(name.value, email.value, gender.value);
+    router.push('/instructions');
+  }
+  catch (e) {
+    error.value = 'Email has already been used for a submission.'
+  }
 }
-
 </script>

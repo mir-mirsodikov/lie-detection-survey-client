@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import SignIn from '../views/SignIn.vue';
 import Admin from '../views/Admin.vue';
 import Survey from '../views/Survey.vue';
+import Instructions from '../views/Instructions.vue';
+import Questions from '../views/Questions.vue';
 import { useAuthStore } from '../store/auth';
 
 export const routes = [
@@ -21,6 +23,16 @@ export const routes = [
     path: '/',
     name: 'Survey',
     component: Survey,
+  },
+  {
+    path: '/instructions',
+    name: 'Instructions',
+    component: Instructions,
+  },
+  {
+    path: '/questions',
+    name: 'Questions',
+    component: Questions,
   }
 ];
 

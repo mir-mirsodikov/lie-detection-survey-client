@@ -5,12 +5,13 @@
     </div>
     <div class="uk-card-body">
       <p v-if="!edit" @click="editQuestion" >{{ value }}</p>
-      <textarea class="uk-textarea" v-model="value" v-if="edit" @keyup.enter="submitQuestion" @keyup.esc="cancel"></textarea>
+      <textarea class="uk-textarea" v-model="value" v-if="edit" @keyup.enter="submitQuestion" @keyup.esc="cancelUpdate"></textarea>
     </div>
     <div class="uk-card-footer">
       <div class="uk-align-right">
         <a uk-icon="file-edit" class="uk-icon-link uk-margin-right" @click="editQuestion"></a>
-        <a uk-icon="trash" class="uk-icon-link"></a>
+        <a uk-icon="trash" class="uk-icon-link" @click="deleteQuestion" v-if="question.active"></a>
+        <a uk-icon="check" class="uk-icon-link" @click="deleteQuestion" v-if="!question.active"></a>
       </div>
     </div>
   </div>
@@ -45,8 +46,12 @@ const submitQuestion = async () => {
   await adminStore.updateQuestion(props.question.id, value.value);
 }
 
-const cancel = () => {
+const cancelUpdate = () => {
   edit.value = false;
   value.value = originalValue.value;
+}
+
+const deleteQuestion = async () => {
+  await adminStore.deleteQuestion(props.question.id);
 }
 </script>

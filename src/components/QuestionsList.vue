@@ -1,9 +1,9 @@
 <template>
-  <div class="uk-width-3-4 uk-section uk-section-default uk-card-hover uk-margin-top uk-margin-auto">
+  <div class="uk-width-3-4 uk-section uk-section-default uk-card-hover uk-margin uk-margin-auto">
     <div class="uk-container">
       <h3>All questions</h3>
 
-      <div uk-accordion>
+      <div uk-accordion="multiple: true">
         <li class="uk-open">
           <a class="uk-accordion-title" href="#">Active Questions</a>
           <div class="uk-accordion-content">

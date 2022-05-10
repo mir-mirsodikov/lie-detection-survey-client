@@ -48,18 +48,21 @@ export class AdminService {
         },
       },
     );
-    
+
     console.log(`response data: ${JSON.stringify(response.data)}`);
     return response.data;
   }
 
-  static async deleteQuestion(id: number) {
+  static async deleteQuestion(id: number, active: boolean) {
     const token = useAuthStore().token;
-    const response = await axios.delete(this.url + '/survey/' + id, {
-      headers: {
-        authorization: token,
+    const response = await axios.delete(
+      this.url + '/survey/' + id,
+      {
+        headers: {
+          authorization: token,
+        },
       },
-    });
+    );
 
     return response.data;
   }

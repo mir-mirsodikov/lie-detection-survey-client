@@ -52,6 +52,6 @@ const cancelUpdate = () => {
 }
 
 const deleteQuestion = async () => {
-  await adminStore.deleteQuestion(props.question.id);
+  await adminStore.deleteQuestion(props.question.id, !props.question.active);
 }
 </script>

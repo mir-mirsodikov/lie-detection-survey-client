@@ -31,8 +31,8 @@ export const useAdminStore = defineStore('admin', () => {
     surveyQuestions.value[index] = response;
   }
 
-  async function deleteQuestion(id: number) {
-    const response = await AdminService.deleteQuestion(id);
+  async function deleteQuestion(id: number, active: boolean) {
+    const response = await AdminService.deleteQuestion(id, active);
     const index = surveyQuestions.value.findIndex(
       // @ts-ignore
       (question) => question.id === id,

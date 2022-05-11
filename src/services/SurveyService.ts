@@ -6,8 +6,9 @@ export class SurveyService {
 
   static async getSettings() {
     const response = await axios.get(this.url + '/settings');
+
     return {
-      wpm: response.data.wpm,
+      wordDuration: response.data.wordDuration,
       instructions: response.data.instructions,
     };
   }

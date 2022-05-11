@@ -67,12 +67,12 @@ export class AdminService {
     return response.data;
   }
 
-  static async setSettings(settings: { wpm: number; instructions: string }) {
+  static async setSettings(settings: { wordDuration: number; instructions: string }) {
     const token = useAuthStore().token;
     const response = await axios.post(
       this.url + '/settings',
       {
-        wpm: settings.wpm,
+        wordDuration: settings.wordDuration,
         instructions: settings.instructions,
       },
       {
@@ -83,7 +83,7 @@ export class AdminService {
     );
 
     return {
-      wpm: response.data.wpm,
+      wordDuration: response.data.wpm,
       instructions: response.data.instructions,
     };
   }

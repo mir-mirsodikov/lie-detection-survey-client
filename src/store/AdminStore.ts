@@ -5,7 +5,7 @@ import { AdminService } from '../services/AdminService';
 export const useAdminStore = defineStore('admin', () => {
   const surveyQuestions = ref();
   const surveySettings = ref<{
-    wpm: number,
+    wordDuration: number,
     instructions: string,
   }>();
 
@@ -40,7 +40,7 @@ export const useAdminStore = defineStore('admin', () => {
     surveyQuestions.value[index] = response;
   }
 
-  async function setSettings(settings: {wpm: number, instructions: string}) {
+  async function setSettings(settings: {wordDuration: number, instructions: string}) {
     const response = await AdminService.setSettings(settings);
     surveySettings.value = response;
   }

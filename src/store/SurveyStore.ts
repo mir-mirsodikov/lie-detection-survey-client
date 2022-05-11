@@ -4,7 +4,7 @@ import { SurveyService } from '../services/SurveyService';
 
 export const useSurveyStore = defineStore('survey', () => {
   const surveySettings = ref<{
-    wpm: number;
+    wordDuration: number;
     instructions: string;
   }>();
 

@@ -12,7 +12,7 @@
       </div>
 
       <div class="uk-card-footer">
-        <h3>Please select the honest level</h3>
+        <h3>Please indicate your assessment</h3>
         <div class="uk-margin uk-grid-medium uk-child-width-auto uk-grid">
           <label><input class="uk-radio" type="radio" value="1" v-model="ratingSelection"> 1 - Very dishonest</label>
           <label><input class="uk-radio" type="radio" value="2" v-model="ratingSelection"> 2 - Moderately
@@ -57,7 +57,7 @@ const currentQuestion = ref();
 const questionIndex = ref(0);
 const timeLimit = 3;
 const ratingSelection = ref(0);
-let wpm = 0;
+const wordDuration = ref(0);
 
 let currentTime = ref(timeLimit);
 
@@ -77,8 +77,8 @@ let repeat: any;
 
 function speedReader() {
   words.value = currentQuestion.value.value.split(/\s+/);
-  const speed = 1000 / (wpm / 60);
-  repeat = setInterval(readWord, speed);
+  console.log(wordDuration.value);
+  repeat = setInterval(readWord, wordDuration.value);
 }
 
 let index = 0;
@@ -123,7 +123,7 @@ onMounted(async () => {
     return;
   }
   await surveyStore.getSettings();
-  wpm = surveyStore.surveySettings?.wpm as number;
+  wordDuration.value = surveyStore.surveySettings?.wordDuration as number;
   currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];
   questionsLength.value = surveyStore.surveyQuestions.length;
   countdown();

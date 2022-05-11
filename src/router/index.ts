@@ -4,6 +4,7 @@ import Admin from '../views/Admin.vue';
 import Survey from '../views/Survey.vue';
 import Instructions from '../views/Instructions.vue';
 import Questions from '../views/Questions.vue';
+import Finish from '../views/Finish.vue';
 import { useAuthStore } from '../store/auth';
 
 export const routes = [
@@ -33,6 +34,11 @@ export const routes = [
     path: '/questions',
     name: 'Questions',
     component: Questions,
+  },
+  {
+    path: '/finish',
+    name: 'Finish',
+    component: Finish
   }
 ];
 

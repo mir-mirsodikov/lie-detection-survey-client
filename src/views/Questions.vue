@@ -2,7 +2,7 @@
   <div>
     <div class="uk-card uk-card-default uk-margin-xlarge-top uk-width-4-5 uk-margin-auto">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Question #{{ surveyStore.currentQuestion + 1 }}</h3>
+        <h3 class="uk-card-title">Question #{{ questionIndex + 1 }}</h3>
       </div>
 
       <div class="uk-card-body">
@@ -45,6 +45,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import router from '../router';
 import { useSurveyStore } from '../store/SurveyStore';
 
 const surveyStore = useSurveyStore();
@@ -91,6 +92,10 @@ function readWord() {
 const next = () => {
   clearInterval(repeat);
   questionIndex.value++;
+  if (questionIndex.value === surveyStore.surveyQuestions.length) {
+    router.push('/finish');
+    return;
+  }
   currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];
   currentTime.value = timeLimit;
   word.value = null;

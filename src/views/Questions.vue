@@ -11,6 +11,7 @@
       </div>
 
       <div class="uk-card-footer">
+        <h3>Please select the honest level</h3>
         <div class="uk-margin uk-grid-medium uk-child-width-auto uk-grid">
           <label><input class="uk-radio" type="radio" value="1" v-model="ratingSelection"> 1 - Very dishonest</label>
           <label><input class="uk-radio" type="radio" value="2" v-model="ratingSelection"> 2 - Moderately
@@ -23,6 +24,7 @@
           <label><input class="uk-radio" type="radio" value="6" v-model="ratingSelection"> 6 - Moderately honest</label>
           <label><input class="uk-radio" type="radio" value="7" v-model="ratingSelection"> 7 - Very honest</label>
         </div>
+        <button class="uk-button uk-button-primary" @click="repeatQuestion">Repeat</button>
         <button class="uk-button uk-button-primary uk-align-right" :disabled="!ratingSelection"
           uk-toggle="target: #modal">Next</button>
       </div>
@@ -31,7 +33,7 @@
 
   <div id="modal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
-      <h2 class="uk-modal-title">Are you sure you want to submit?</h2>
+      <h2 class="uk-modal-title">Please confirm your selection</h2>
       <p>You will not be able to change your answer after submitting.</p>
       <p class="uk-text-right">
         <button class="uk-button uk-button-default uk-modal-close uk-margin-right" type="button">Cancel</button>
@@ -43,15 +45,13 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { onBeforeRouteUpdate } from 'vue-router';
-import router from '../router';
 import { useSurveyStore } from '../store/SurveyStore';
 
 const surveyStore = useSurveyStore();
-const allQuestions = ref();
 const words = ref();
 const word = ref();
-const question = ref();
+const currentQuestion = ref();
+const questionIndex = ref(0);
 const timeLimit = 5;
 const ratingSelection = ref(0);
 let wpm = 0;
@@ -72,9 +72,8 @@ const countdown = () => {
 
 let repeat: any;
 
-
 function speedReader() {
-  words.value = question.value.value.split(/\s+/);
+  words.value = currentQuestion.value.value.split(/\s+/);
   const speed = 1000 / (wpm / 60);
   repeat = setInterval(readWord, speed);
 }
@@ -90,29 +89,31 @@ function readWord() {
 }
 
 const next = () => {
-  // if (surveyStore.currentQuestion < allQuestions.value.length) {
-  //   surveyStore.currentQuestion++;
-  //   currentTime.value = timeLimit;
-  //   countdown();
-  // } else {
-  //   router.push('/results');
-  // }
-  surveyStore.currentQuestion++;
-  router.push('/questions/' + surveyStore.currentQuestion);
+  clearInterval(repeat);
+  questionIndex.value++;
+  currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];
+  currentTime.value = timeLimit;
+  word.value = null;
+  words.value = null;
+  ratingSelection.value = 0;
+  index = 0;
+  countdown();
 }
 
-
-onBeforeRouteUpdate((to, from, next) => {
+const repeatQuestion = () => {
+  clearInterval(repeat);
   currentTime.value = timeLimit;
-  question.value = surveyStore.surveyQuestions[surveyStore.currentQuestion];
-});
+  word.value = null;
+  words.value = null;
+  index = 0;
+  countdown();
+}
 
 onMounted(async () => {
   await surveyStore.getSurveyQuestions();
   await surveyStore.getSettings();
   wpm = surveyStore.surveySettings?.wpm as number;
-  allQuestions.value = surveyStore.surveyQuestions.values;
-  question.value = surveyStore.surveyQuestions[surveyStore.currentQuestion];
+  currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];
   countdown();
 });
 </script>

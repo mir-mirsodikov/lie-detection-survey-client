@@ -55,7 +55,7 @@ const word = ref();
 const questionsLength = ref();
 const currentQuestion = ref();
 const questionIndex = ref(0);
-const timeLimit = 5;
+const timeLimit = 3;
 const ratingSelection = ref(0);
 let wpm = 0;
 

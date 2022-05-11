@@ -26,4 +26,16 @@ export class SurveyService {
     const response = await axios.get(this.url);
     return response.data;
   }
+
+  static async submitSurvey(
+    participantId: number,
+    surveyId: number,
+    rating: number
+  ) {
+    await axios.post(this.url, {
+      participantId,
+      surveyId,
+      rating,
+    });
+  }
 }

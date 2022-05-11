@@ -65,6 +65,10 @@ export const useSurveyStore = defineStore('survey', () => {
     }
   }
 
+  async function submitSurvey(surveyId: number, rating: number) {
+    await SurveyService.submitSurvey(participant.value!.id, surveyId, rating);
+  }
+
   return {
     surveySettings,
     getSettings,
@@ -73,5 +77,6 @@ export const useSurveyStore = defineStore('survey', () => {
     getSurveyQuestions,
     surveyQuestions,
     currentQuestion,
+    submitSurvey,
   };
 });

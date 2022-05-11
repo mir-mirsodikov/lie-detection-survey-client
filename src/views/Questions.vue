@@ -89,8 +89,9 @@ function readWord() {
   }
 }
 
-const next = () => {
+const next = async () => {
   clearInterval(repeat);
+  await surveyStore.submitSurvey(currentQuestion.value.id, ratingSelection.value);
   questionIndex.value++;
   if (questionIndex.value === surveyStore.surveyQuestions.length) {
     router.push('/finish');
@@ -115,7 +116,10 @@ const repeatQuestion = () => {
 }
 
 onMounted(async () => {
-  await surveyStore.getSurveyQuestions();
+  if (!surveyStore.participant) {
+    router.push('/');
+    return;
+  }
   await surveyStore.getSettings();
   wpm = surveyStore.surveySettings?.wpm as number;
   currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];

@@ -99,4 +99,16 @@ export class AdminService {
     console.log(response.data);
     return response.data;
   }
+
+  static async downloadResponses() {
+    const token = useAuthStore().token;
+    const response = await axios.get(this.url + '/download/responses', {
+      headers: {
+        authorization: token,
+      },
+    });
+
+    console.log(response.data);
+    return response.data;
+  }
 }

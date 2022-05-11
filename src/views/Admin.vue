@@ -7,11 +7,10 @@
     </div>
     <div class="uk-margin uk-padding uk-grid-small uk-flex uk-flex-middle" uk-grid>
       <div>
-        <!-- <button class="uk-button" @click="downloadQuestions">Download questions</button> -->
-        <a class="uk-button uk-button-default" @click.prevent="downloadQuestions">Download questions</a>
+        <button class="uk-button uk-button-default" @click="downloadQuestions">Download questions</button>
       </div>
       <div>
-        <button class="uk-button">Download responses</button>
+        <button class="uk-button uk-button-default" @click.prevent="downloadResponses">Download responses</button>
       </div>
       <div>
         <button class="uk-button uk-button-primary">Sign out</button>
@@ -36,6 +35,16 @@ const downloadQuestions = async () => {
   const link = document.createElement('a');
   link.href = URL.createObjectURL(file);
   link.download = 'questions.csv';
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+const downloadResponses = async () => {
+  const csvFile = await AdminService.downloadResponses();
+  const file = new Blob([csvFile], { type: 'text/csv' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(file);
+  link.download = 'responses.csv';
   link.click();
   URL.revokeObjectURL(link.href);
 }

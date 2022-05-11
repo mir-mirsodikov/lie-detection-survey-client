@@ -3,6 +3,7 @@
     <div class="uk-card uk-card-default uk-margin-xlarge-top uk-width-4-5 uk-margin-auto">
       <div class="uk-card-header">
         <h3 class="uk-card-title">Question #{{ questionIndex + 1 }}</h3>
+        <progress id="progress" class="uk-progress" :value="questionIndex" :max="questionsLength"></progress>
       </div>
 
       <div class="uk-card-body">
@@ -51,6 +52,7 @@ import { useSurveyStore } from '../store/SurveyStore';
 const surveyStore = useSurveyStore();
 const words = ref();
 const word = ref();
+const questionsLength = ref();
 const currentQuestion = ref();
 const questionIndex = ref(0);
 const timeLimit = 5;
@@ -123,6 +125,9 @@ onMounted(async () => {
   await surveyStore.getSettings();
   wpm = surveyStore.surveySettings?.wpm as number;
   currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];
+  questionsLength.value = surveyStore.surveyQuestions.length;
   countdown();
 });
+
+
 </script>

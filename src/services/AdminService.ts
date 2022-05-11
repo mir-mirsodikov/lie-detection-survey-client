@@ -69,7 +69,6 @@ export class AdminService {
 
   static async setSettings(settings: { wpm: number; instructions: string }) {
     const token = useAuthStore().token;
-    console.log(settings);
     const response = await axios.post(
       this.url + '/settings',
       {
@@ -87,5 +86,17 @@ export class AdminService {
       wpm: response.data.wpm,
       instructions: response.data.instructions,
     };
+  }
+
+  static async downloadQuestions() {
+    const token = useAuthStore().token;
+    const response = await axios.get(this.url + '/download/questions', {
+      headers: {
+        authorization: token,
+      },
+    });
+
+    console.log(response.data);
+    return response.data;
   }
 }

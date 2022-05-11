@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, toHandlerKey } from 'vue';
 import { IUser } from '../model/user';
 import { AuthService } from '../services/AuthService';
 
@@ -30,10 +30,16 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.setItem('token', token);
   }
 
+  function signOut() {
+    localStorage.removeItem('token');
+    authToken.value = undefined;
+  }
+
   return {
     token: authToken,
     signIn,
     isAuthenticated,
     isAuthorized,
+    signOut,
   };
 });

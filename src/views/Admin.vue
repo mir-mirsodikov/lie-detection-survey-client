@@ -13,7 +13,7 @@
         <button class="uk-button uk-button-default" @click.prevent="downloadResponses">Download responses</button>
       </div>
       <div>
-        <button class="uk-button uk-button-primary">Sign out</button>
+        <button class="uk-button uk-button-primary" @click.prevent="signOut">Sign out</button>
       </div>
     </div>
   </div>
@@ -27,7 +27,9 @@
 import NewQuestion from '../components/NewQuestion.vue';
 import QuestionsList from '../components/QuestionsList.vue';
 import Settings from '../components/Settings.vue';
+import router from '../router';
 import { AdminService } from '../services/AdminService';
+import { useAuthStore } from '../store/auth';
 
 const downloadQuestions = async () => {
   const csvFile = await AdminService.downloadQuestions();
@@ -47,5 +49,10 @@ const downloadResponses = async () => {
   link.download = 'responses.csv';
   link.click();
   URL.revokeObjectURL(link.href);
+}
+
+const signOut = () => {
+  useAuthStore().signOut();
+  router.push('/login');
 }
 </script>

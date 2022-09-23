@@ -1,16 +1,92 @@
-# Vue 3 + TypeScript + Vite
+<h1>lie-detection-survey-client</h1>
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is the client for the lie detection survey. It is a web application that allows users to take the survey and report the results to the survey conductor.
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
-## Type Support For `.vue` Imports in TS
+- [Functionality](#functionality)
+  - [Administrator](#administrator)
+  - [Survey Taker](#survey-taker)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Install](#install)
+    - [Checkout code locally](#checkout-code-locally)
+    - [Install dependencies](#install-dependencies)
+  - [Environmental Variables](#environmental-variables)
+- [Build and Run](#build-and-run)
+  - [NPM Commands](#npm-commands)
+- [Technologies](#technologies)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+# Functionality
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+This applications consists of two different user flows:
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+1. Administrator
+2. Survey Taker
+
+## Administrator
+
+URL: `/admin`
+
+The login credentials can be created from the backend database. There is no UI for creating an administrator account.
+
+The administrator is responsible for creating and managing surveys. They can create, edit, and delete surveys. They can also view the results of a survey by downloading it as a CSV file.
+
+
+## Survey Taker
+
+URL: `/`
+
+The user taking the survey will see a series of prompts that flash one word at a time at a speed specified by the administrator. The user is then to indicate how truthful the prompt is.
+
+
+# Getting Started
+
+## Prerequisites
+
+You will need the following things properly installed on your computer:
+1. Node.js
+2. Sever for this client
+   1. Server [GitHub Repo](https://github.com/mir-mirsodikov/lie-detection-survey-server)
+
+## Install
+
+### Checkout code locally
+
+``` bash
+git clone https://github.com/mir-mirsodikov/lie-detection-survey-client
+```
+
+### Install dependencies
+
+``` bash
+npm i
+```
+
+## Environmental Variables
+
+The following environmental variables are required for the application to run:
+
+| Variable Name  | Description                                            |
+| -------------- | ------------------------------------------------------ |
+| `VITE_API_URL` | The URL of the server that the client will connect to. |
+
+# Build and Run
+
+## NPM Commands
+
+| Command         | Description                               |
+| --------------- | ----------------------------------------- |
+| `npm run dev`   | Runs the application in development mode. |
+| `npm run build` | Builds the application for production.    |
+| `npm start`     | Runs the application in production mode.  |
+
+# Technologies
+
+This project was built using the following technologies:
+
+- [Vue.js](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
+- [Pinia](https://pinia.esm.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [UIKit](https://getuikit.com/)

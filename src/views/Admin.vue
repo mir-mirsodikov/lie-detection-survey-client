@@ -56,3 +56,7 @@ const signOut = () => {
   router.push('/login');
 }
 </script>
+
+<style>
+
+</style>

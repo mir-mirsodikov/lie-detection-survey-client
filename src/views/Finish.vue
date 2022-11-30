@@ -5,11 +5,18 @@
     </div>
 
     <div class="uk-card-body">
-      <p>Thank you for completing the survey!</p>
+      <p>{{endMessage}}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { useSurveyStore } from '../store/SurveyStore';
 
+const endMessage = ref();
+
+onMounted(async () => {
+  endMessage.value = useSurveyStore().surveySettings?.endMessage;
+});
 </script>

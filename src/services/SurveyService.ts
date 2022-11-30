@@ -4,12 +4,13 @@ import { baseUrl } from '../helpers/constants';
 export class SurveyService {
   static url = baseUrl + '/survey';
 
-  static async getSettings() {
-    const response = await axios.get(this.url + '/settings');
+  static async getSettings(userId: number) {
+    const response = await axios.get(this.url + `/settings/${userId}`);
 
     return {
       wordDuration: response.data.wordDuration,
       instructions: response.data.instructions,
+      endMessage: response.data.endMessage,
     };
   }
 
@@ -23,8 +24,8 @@ export class SurveyService {
     return response.data;
   }
 
-  static async getSurveyQuestions() {
-    const response = await axios.get(this.url);
+  static async getSurveyQuestions(userId: number) {
+    const response = await axios.get(this.url + `/${userId}`);
     return response.data;
   }
 

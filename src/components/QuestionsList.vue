@@ -1,8 +1,10 @@
 <template>
-  <div class="uk-width-3-4 uk-section uk-section-default uk-card-hover uk-margin uk-margin-auto">
-    <div class="uk-container">
-      <h3>All questions</h3>
+  <div class="uk-card uk-card-default uk-width-3-4 uk-card-hover uk-margin-auto uk-margin-top uk-margin-bottom">
+    <div class="uk-card-header">
+      <h3 class="uk-card-title">All survey questions</h3>
+    </div>
 
+    <div class="uk-card-body">
       <div uk-accordion="multiple: true">
         <li class="uk-open">
           <a class="uk-accordion-title" href="#">Active Questions</a>
@@ -28,6 +30,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { useAdminStore } from '../store/AdminStore';
+import { useAuthStore } from '../store/auth';
 import QuestionCard from './QuestionCard.vue';
 const adminStore = useAdminStore();
 
@@ -38,7 +41,8 @@ const questions = ref<[{
 }]>();
 
 onMounted(async () => {
-  await adminStore.getQuestions();
+  const userId = useAuthStore().getUserId();
+  await adminStore.getQuestions(userId);
   questions.value = adminStore.surveyQuestions;
 });
 </script>

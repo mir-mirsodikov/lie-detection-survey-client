@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import router from '../router';
 import { useSurveyStore } from '../store/SurveyStore';
 
@@ -77,7 +78,6 @@ let repeat: any;
 
 function speedReader() {
   words.value = currentQuestion.value.value.split(/\s+/);
-  console.log(wordDuration.value);
   repeat = setInterval(readWord, wordDuration.value);
 }
 
@@ -118,11 +118,12 @@ const repeatQuestion = () => {
 }
 
 onMounted(async () => {
+  const userId = parseInt(useRoute().params.userId as string);
   if (!surveyStore.participant) {
-    router.push('/');
+    router.push({ path: `/${userId}`});
     return;
   }
-  await surveyStore.getSettings();
+  await surveyStore.getSettings(userId);
   wordDuration.value = surveyStore.surveySettings?.wordDuration as number;
   currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];
   questionsLength.value = surveyStore.surveyQuestions.length;

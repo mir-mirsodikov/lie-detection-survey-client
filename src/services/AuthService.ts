@@ -8,7 +8,25 @@ export class AuthService {
       username,
       password,
     });
-    return response.data.token;
+    return {
+      token: response.data.token,
+      id: response.data.id,
+      name: response.data.name,
+    };
+  }
+
+  static async signUp(name: string, username: string, password: string) {
+    let response = await axios.post(this.url + '/signup', {
+      name,
+      username,
+      password,
+    });
+
+    return {
+      token: response.data.token,
+      id: response.data.id,
+      name: response.data.name,
+    };
   }
 
   static async authorize(token: string) {

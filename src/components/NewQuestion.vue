@@ -10,21 +10,23 @@
           <textarea class="uk-textarea" rows="5" placeholder="Enter new question" v-model="newQuestion"></textarea>
         </div>
 
-        <button class="uk-button uk-button-primary uk-align-right uk-margin-remove">Submit</button>
+        <button class="uk-button uk-button-primary uk-align-right uk-margin-remove" :disabled="!newQuestion">Submit</button>
       </form>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useAdminStore } from '../store/AdminStore';
+import { useAuthStore } from '../store/auth';
 
 const newQuestion = ref();
 const adminStore = useAdminStore();
 
 async function submit() {
-  await adminStore.createQuestion(newQuestion.value);
+  const userId = useAuthStore().getUserId();
+  await adminStore.createQuestion(newQuestion.value, userId);
   newQuestion.value = '';
 }
 </script>

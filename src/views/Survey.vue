@@ -35,9 +35,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import router from '../router';
 import { useSurveyStore } from '../store/SurveyStore';
+import { useRoute } from 'vue-router';
 
 const surveyStore = useSurveyStore();
 
@@ -45,14 +46,19 @@ const name = ref();
 const email = ref();
 const gender = ref('');
 const error = ref();
+const userId = ref<number>();
 
 const createParticipant = async () => {
   if (!name.value || !email.value || !gender.value) {
     error.value = 'Missing required information';
     return;
   }
+  console.log(userId.value);
   await surveyStore.createParticipant(name.value, email.value, gender.value);
-  router.push('/instructions');
-  error.value = 'Email has already been used for a submission.';
+  router.push({ path: `/instructions/${userId.value}` });
 }
+
+onMounted(async () => {
+  userId.value = parseInt(useRoute().params.userId as string);
+});
 </script>

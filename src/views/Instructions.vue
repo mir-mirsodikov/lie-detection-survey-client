@@ -18,18 +18,24 @@
 import { onMounted, ref } from 'vue';
 import router from '../router';
 import { useSurveyStore } from '../store/SurveyStore';
+import { useRoute } from 'vue-router';
 
 const surveyStore = useSurveyStore();
 
 const instructions = ref();
+const userId = ref<number>(0);
 
 const beginSurvey = async () => {
-  await surveyStore.getSurveyQuestions();
-  router.push(`/questions`);
+  await surveyStore.getSurveyQuestions(userId.value);
+  router.push({path: `/questions/${userId.value}`});
 }
 
 onMounted(async () => {
-  await surveyStore.getSettings();
+  userId.value = parseInt(useRoute().params.userId as string);
+  if (!surveyStore.participant) {
+    router.push({path: `/${userId.value}`});
+  }
+  await surveyStore.getSettings(userId.value);
   instructions.value = surveyStore.surveySettings?.instructions;
 });
 </script>

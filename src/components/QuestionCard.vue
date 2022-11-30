@@ -9,9 +9,9 @@
     </div>
     <div class="uk-card-footer">
       <div class="uk-align-right">
-        <a uk-icon="file-edit" class="uk-icon-link uk-margin-right" @click="editQuestion"></a>
-        <a uk-icon="trash" class="uk-icon-link" @click="deleteQuestion" v-if="question.active"></a>
-        <a uk-icon="check" class="uk-icon-link" @click="deleteQuestion" v-if="!question.active"></a>
+        <a uk-icon="file-edit" title="Edit question" class="uk-icon-link uk-margin-right" @click="editQuestion"></a>
+        <a uk-icon="trash" title="Delete question" class="uk-icon-link" @click="deleteQuestion"></a>
+        <a uk-icon="check" title="Reactivate question" class="uk-icon-link uk-margin-left" @click="reactivateQuestion" v-if="!question.active"></a>
       </div>
     </div>
   </div>
@@ -40,10 +40,14 @@ const editQuestion = () => {
   edit.value = !edit.value;
 };
 
+const reactivateQuestion = async () => {
+  await adminStore.updateQuestion(props.question.id, value.value, true);
+};
+
 const submitQuestion = async () => {
   edit.value = false;
   value.value = value.value.trimEnd();
-  await adminStore.updateQuestion(props.question.id, value.value);
+  await adminStore.updateQuestion(props.question.id, value.value, true);
 }
 
 const cancelUpdate = () => {

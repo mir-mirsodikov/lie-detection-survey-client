@@ -6,6 +6,7 @@ export const useSurveyStore = defineStore('survey', () => {
   const surveySettings = ref<{
     wordDuration: number;
     instructions: string;
+    endMessage: string;
   }>();
 
   const participant = ref<{
@@ -23,8 +24,8 @@ export const useSurveyStore = defineStore('survey', () => {
 
   const currentQuestion = ref(0);
 
-  async function getSettings() {
-    const response = await SurveyService.getSettings();
+  async function getSettings(userId: number) {
+    const response = await SurveyService.getSettings(userId);
     surveySettings.value = response;
   }
 
@@ -58,8 +59,8 @@ export const useSurveyStore = defineStore('survey', () => {
     return array;
   }
 
-  async function getSurveyQuestions() {
-    const response = await SurveyService.getSurveyQuestions();
+  async function getSurveyQuestions(userId: number) {
+    const response = await SurveyService.getSurveyQuestions(userId);
     if (response) {
       surveyQuestions.value = shuffleArray(response);
     }

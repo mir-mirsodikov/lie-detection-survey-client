@@ -20,10 +20,20 @@
 
   <div class="uk-card uk-card-default uk-width-3-4 uk-margin-auto">
     <div class="uk-card-body">
-      <h3>Welcome back, {{name}}</h3>
-      <h4>Link to your <a :href="surveyUrl" target="_blank">survey</a>.</h4>
+      <h3>Welcome back, {{ name }}</h3>
     </div>
   </div>
+
+  <div class="uk-card uk-card-body uk-card-default uk-width-3-4 uk-margin-auto uk-margin-top">
+    <h4>Link to your survey.</h4>
+    <p>Share this link with participants to get their responses to your questions. You can also start it your self and see how it looks for the participant.</p>
+    <div class="uk-flex">
+      <input class="uk-input uk-width-1-2" disabled :value="surveyUrl" />
+      <button class="uk-button uk-button-default uk-margin-left" @click="copyLink">Copy Link</button>
+      <a :href="surveyUrl" target="_blank" class="uk-button uk-button-primary uk-margin-left">Open</a>
+    </div>
+  </div>
+
   <Settings></Settings>
   <NewQuestion></NewQuestion>
   <QuestionsList></QuestionsList>
@@ -40,6 +50,10 @@ import { useAuthStore } from '../store/auth';
 
 const name = ref<string>('');
 const surveyUrl = ref<string>('');
+
+const copyLink = () => {
+  navigator.clipboard.writeText(surveyUrl.value);
+}
 
 const downloadQuestions = async () => {
   const csvFile = await AdminService.downloadQuestions();

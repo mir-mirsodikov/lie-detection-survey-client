@@ -28,7 +28,7 @@
     <h4>Link to your survey.</h4>
     <p>Share this link with participants to get their responses to your questions. You can also start it your self and see how it looks for the participant.</p>
     <div class="uk-flex">
-      <input class="uk-input uk-width-1-2" disabled :value="surveyUrl" />
+      <input class="uk-input uk-width-expand" disabled :value="surveyUrl" />
       <button class="uk-button uk-button-default uk-margin-left" @click="copyLink">Copy Link</button>
       <a :href="surveyUrl" target="_blank" class="uk-button uk-button-primary uk-margin-left">Open</a>
     </div>

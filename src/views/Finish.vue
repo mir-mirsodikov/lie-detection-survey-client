@@ -13,10 +13,20 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useSurveyStore } from '../store/SurveyStore';
+import { useRoute } from 'vue-router';
+import router from '../router';
+
+const surveyStore = useSurveyStore();
 
 const endMessage = ref();
+const userId = ref<number>(0);
 
 onMounted(async () => {
-  endMessage.value = useSurveyStore().surveySettings?.endMessage;
+  userId.value = parseInt(useRoute().params.userId as string);
+  if (!surveyStore.participant) {
+    router.push({path: `/survey/${userId.value}`});
+  }
+  await surveyStore.getSettings(userId.value);
+  endMessage.value = surveyStore.surveySettings?.endMessage;
 });
 </script>

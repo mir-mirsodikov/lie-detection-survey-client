@@ -1,6 +1,7 @@
 import axios from 'axios';
 import internal from 'stream';
 import { baseUrl } from '../helpers/constants';
+import { useAdminStore } from '../store/AdminStore';
 import { useAuthStore } from '../store/auth';
 import { AuthService } from './AuthService';
 
@@ -94,7 +95,8 @@ export class AdminService {
 
   static async downloadQuestions() {
     const token = useAuthStore().token;
-    const response = await axios.get(this.url + '/download/questions', {
+    const userId = useAuthStore().getUserId()
+    const response = await axios.get(this.url + `/download/questions/${userId}`, {
       headers: {
         authorization: token,
       },
@@ -105,7 +107,8 @@ export class AdminService {
 
   static async downloadResponses() {
     const token = useAuthStore().token;
-    const response = await axios.get(this.url + '/download/responses', {
+    const userId = useAuthStore().getUserId()
+    const response = await axios.get(this.url + `/download/responses/${userId}`, {
       headers: {
         authorization: token,
       },

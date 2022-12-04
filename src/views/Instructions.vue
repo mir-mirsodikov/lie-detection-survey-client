@@ -27,13 +27,13 @@ const userId = ref<number>(0);
 
 const beginSurvey = async () => {
   await surveyStore.getSurveyQuestions(userId.value);
-  router.push({path: `/questions/${userId.value}`});
+  router.push({path: `/survey/questions/${userId.value}`});
 }
 
 onMounted(async () => {
   userId.value = parseInt(useRoute().params.userId as string);
   if (!surveyStore.participant) {
-    router.push({path: `/${userId.value}`});
+    router.push({path: `/survey/${userId.value}`});
   }
   await surveyStore.getSettings(userId.value);
   instructions.value = surveyStore.surveySettings?.instructions;

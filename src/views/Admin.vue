@@ -72,7 +72,7 @@ onMounted(async () => {
     name.value = user.getName();
     const currentPath = document.URL.split('/');
     currentPath.pop();
-    currentPath.push(`${user.getUserId()}`);
+    currentPath.push(`survey/${user.getUserId()}`);
     surveyUrl.value = currentPath.join('/');
   }
   console.log(surveyUrl.value);

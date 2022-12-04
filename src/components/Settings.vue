@@ -7,7 +7,7 @@
     <div class="uk-card-body">
       <form class="uk-form-stacked" @submit.prevent="submit">
         <div class="uk-margin">
-          <label for="" class="uk-form-label">Words duration</label>
+          <label for="" class="uk-form-label">Words duration (Duration that each word in a survey prompt appears on screen for, in ms)</label>
           <div class="uk-form-controls">
             <input :class="error ? 'uk-form-danger uk-input uk-width-1-4' : 'uk-input uk-width-1-4'" type="text" placeholder="300" v-model="wordDuration">
           </div>

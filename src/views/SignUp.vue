@@ -1,7 +1,7 @@
 <template>
   <div class="uk-margin-auto uk-margin-top">
     <div
-      class="uk-card uk-card-default uk-width-1-5@l uk-width-1-4@m uk-width-1-3@s uk-align-center uk-margin-xlarge-top uk-card-hover">
+      class="uk-card uk-card-default uk-width-1-4@l uk-width-1-2@m uk-width-1-2@s uk-align-center uk-margin-xlarge-top uk-card-hover">
       <div class="uk-card-header">
         <h3 class="uk-card-title">Sign Up</h3>
       </div>
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="uk-card uk-card-default uk-width-1-5@l uk-width-1-4@m uk-width-1-3@s uk-align-center uk-card-hover">
+    <div class="uk-card uk-card-default uk-width-1-4@l uk-width-1-2@m uk-width-1-2@s uk-align-center uk-card-hover">
       <div class="uk-card-body">
         <p>Already have an account? <router-link to="/login">Login</router-link>
         </p>

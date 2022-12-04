@@ -6,6 +6,7 @@ import Instructions from '../views/Instructions.vue';
 import Questions from '../views/Questions.vue';
 import Finish from '../views/Finish.vue';
 import SignUp from '../views/SignUp.vue';
+import Home from '../views/Home.vue'
 import { useAuthStore } from '../store/auth';
 
 export const routes = [
@@ -28,22 +29,27 @@ export const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/:userId',
+    path: '/',
+    name: 'Home',
+    component: Home,
+  },
+  {
+    path: '/survey/:userId',
     name: 'Survey',
     component: Survey,
   },
   {
-    path: '/instructions/:userId',
+    path: '/survey/instructions/:userId',
     name: 'Instructions',
     component: Instructions,
   },
   {
-    path: '/questions/:userId',
+    path: '/survey/questions/:userId',
     name: 'Questions',
     component: Questions,
   },
   {
-    path: '/finish',
+    path: '/survey/finish/:userId',
     name: 'Finish',
     component: Finish
   }

@@ -61,6 +61,7 @@ const ratingSelection = ref(0);
 const wordDuration = ref(0);
 
 let currentTime = ref(timeLimit);
+const userId = ref();
 
 const countdown = () => {
   if (currentTime.value > 0) {
@@ -96,7 +97,7 @@ const next = async () => {
   await surveyStore.submitSurvey(currentQuestion.value.id, ratingSelection.value);
   questionIndex.value++;
   if (questionIndex.value === surveyStore.surveyQuestions.length) {
-    router.push('/finish');
+    router.push({path: `/survey/finish/${userId.value}`});
     return;
   }
   currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];
@@ -118,12 +119,12 @@ const repeatQuestion = () => {
 }
 
 onMounted(async () => {
-  const userId = parseInt(useRoute().params.userId as string);
+  userId.value = parseInt(useRoute().params.userId as string);
   if (!surveyStore.participant) {
-    router.push({ path: `/${userId}`});
+    router.push({ path: `/survey/${userId.value}`});
     return;
   }
-  await surveyStore.getSettings(userId);
+  await surveyStore.getSettings(userId.value);
   wordDuration.value = surveyStore.surveySettings?.wordDuration as number;
   currentQuestion.value = surveyStore.surveyQuestions[questionIndex.value];
   questionsLength.value = surveyStore.surveyQuestions.length;

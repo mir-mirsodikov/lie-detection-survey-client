@@ -2,7 +2,7 @@
   <div class="uk-card uk-card-default uk-card-hover uk-margin-large-top uk-margin-auto uk-width-1-4"
     style="border-radius: 12px">
     <div class="uk-card-header">
-      <h3 class="uk-card-title">Start</h3>
+      <h3 class="uk-card-title">Participant information</h3>
     </div>
     <div class="uk-card-body">
       <form @submit.prevent="createParticipant">
@@ -55,7 +55,7 @@ const createParticipant = async () => {
   }
   console.log(userId.value);
   await surveyStore.createParticipant(name.value, email.value, gender.value);
-  router.push({ path: `/instructions/${userId.value}` });
+  router.push({ path: `/survey/instructions/${userId.value}` });
 }
 
 onMounted(async () => {

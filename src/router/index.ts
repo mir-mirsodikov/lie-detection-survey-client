@@ -18,7 +18,7 @@ export const routes = [
   },
   {
     path: '/signup',
-    name: 'Sing Up',
+    name: 'Sign Up',
     component: SignUp,
     meta: { guest: true }
   },
